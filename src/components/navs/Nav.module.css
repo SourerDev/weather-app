@@ -1,0 +1,32 @@
+.navBar{
+    font-size: 1.2rem;
+
+    display: flex;
+    justify-content: space-between;
+}
+.links{
+    min-width:60%;
+    padding: .2rem .2rem .2rem .5rem;
+    
+    display: flex;
+    justify-content: flex-start;
+
+}
+
+.textLink{
+    color: aliceblue;
+    
+    padding:0 .5rem 0 .5rem;
+    margin: 0 1rem 0 0;
+    text-decoration: none; 
+    border-radius: 2px;   
+}
+
+.textLink:hover{
+    background-color: rgba(35, 85, 129, 0.481);
+}
+
+.textLinkActive{
+    border-left: 1px solid rgba(0, 0, 0, 0.745);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+}

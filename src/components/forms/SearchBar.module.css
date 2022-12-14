@@ -1,0 +1,30 @@
+.searchBar{
+    min-width: 30%;
+
+    display: flex;
+    justify-content: flex-end;
+}
+
+.searchBar input{
+
+    border: 1px solid #ced4da;
+    border-radius: .2rem;
+    min-width: 60%;
+    margin: .2rem .4rem .2rem 0;
+}
+
+.searchBar button{
+    background-color: transparent;
+    border: 1.25px solid rgb(32,80,192);
+    border-radius: .2rem;
+    color: rgba(32,80,192,1);
+    cursor: pointer;
+    min-width: 20%;
+    margin: .2rem 0 .2rem 0;
+}
+
+.searchBar button:hover{
+    background-color: rgba(32,80,192,0.5);
+    border: 1.25px solid transparent;
+    color: aliceblue;
+}
