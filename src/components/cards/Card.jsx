@@ -1,105 +1,34 @@
-import React from 'react';
-import styled from 'styled-components';
-
-//Styles
-const CardBody = styled.div`
-    background-image: url('https://cdn.pixabay.com/photo/2018/08/23/07/35/thunderstorm-3625405__340.jpg');
-    background-size: cover;
-    background-position: initial;
-    background-repeat: no-repeat;
-    background-color:rgba(0, 0, 0, 0.291);
-
-    min-width: 320px;
-    max-width: 321px;
-    padding-top: .5rem;
-    border-radius: .5rem;
-    margin: 1.2rem;
-    border: 1.25px solid black;
-    `
-    const CardHead = styled.div`
-    height: 10px;
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    & h3{
-        padding: 0 0 0 1rem;
-        font-size: 1.2rem;
-    }
-    & button{
-        margin-right: .5rem;
-        border: none;
-        background-color:transparent;
-        color: red;
-        cursor: pointer;
-        border-radius: 50%;
-    }
-    & button:hover{
-        color: aliceblue;
-    }   
-`
-
-const CardMain = styled.div`
-    display: flex;
-    & p{
-        font-size:1rem;
-        display: inline-block;
-        flex: 1;
-        padding: 10% 0 0 1rem;
-        & span{
-            font-size:2rem;
-            padding: 0;
-            margin: 0;
-        }
-    }
-`
-
-const CardFooter = styled.div`
-    display: flex;
-    font-size: 12px;
-    background-color: rgba(87, 87, 172, 0.291);
-    border-radius: .5rem;
-    & div{
-        flex: 1;
-        padding: 0 0 0 1rem;
-        margin: 0 rem;
-    }
-`
+import React from "react";
+import { icons } from "../../asset";
 
 export default function Card(props) {
-    return <CardBody>
+  return (
+    <div className="bg-[#333441] w-[250px] h-[150px] p-5 relative rounded-lg mr-2 mb-2">
+      <h3 className="font-semibold">{props.name}</h3>
 
-        <CardHead>
-            <h3>{props.name}</h3>
-            <button onClick={
-                (event)=>{
-                    event.preventDefault();
-                    props.onClose(props.id);
-                    console.log(props.id);
-                }
-            }>X</button>
-        </CardHead>
+      <div className="flex items-center justify-around">
+        <img
+          src={`http://openweathermap.org/img/wn/${props.img}@2x.png`}
+          alt=""
+        />
+        <p>
+          <span className="font-semibold text-xl"> {props.temp} °</span> <br />
+          {props.shortDesc}
+        </p>
+      </div>
 
-        <CardMain>
-                <p><span> {props.temp} °</span> <br/>
-                    {props.shortDesc}
-                </p>
-        <img src={`http://openweathermap.org/img/wn/${props.img}@2x.png`} alt=''/>
-        </CardMain>
-
-        <CardFooter>
-            <div>
-                <span>
-                    Max: {props.max}<sup> °</sup>C<br/>
-                    min: {props.min}<sup> °</sup>C
-                </span>
-            </div>
-            <div>
-                <span>
-                    Wind: {props.wind} Km/h <br/>
-                    Humidity: {props.humidity}%
-                </span>
-            </div>
-        </CardFooter>
-
-    </CardBody>   
+      <div className="flex absolute top-2 right-2 ">
+          <icons.Pin.Normal className="w-6 h-6 fill-white" />
+          <button
+            onClick={(event) => {
+              event.preventDefault();
+              props.onClose(props.id);
+              console.log(props.id);
+            }}
+          >
+            <icons.X className="stroke-white w-6 h-6 hover:stroke-red-700" />
+          </button>
+        </div>
+    </div>
+  );
 }

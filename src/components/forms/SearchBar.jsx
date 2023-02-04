@@ -1,58 +1,35 @@
-import React,{useState} from 'react';
+import React, { useState } from "react";
+import { icons } from "../../asset";
 
-import sty from './SearchBar.module.css'
-import styled from 'styled-components'; //npm install --save styled-components
+export default function SearchBar({ onSearch }) {
+  // code
+  const [city, setCity] = useState("");
 
-//Styles
+  function handleChange(event) {
+    setCity(event.target.value);
+  }
 
-const FormSearch = styled.form`
-    display: flex;
-        & input{
-            border: 1px solid #ced4da;
-            width: auto;
-            margin-right: .5rem;
-            border-radius: .2rem;
-            background-color: aliceblue;
-        }
-        & button{
-            width: 4rem;
-            text-align: center;
-            border-radius: .2rem;
-            color: rgba(32,80,192,1);
-            background-color: transparent;
-            cursor: pointer;
-            border: 1.25px solid rgb(32,80,192)
-        }
-        & button:hover{
-            background-color: rgba(32,80,192,0.5);
-            border: 1.25px solid transparent;
-            color: aliceblue;
-        }
+  return (
+    <form className="h-8 w-[300px] relative">
+      <input
+        className="w-full h-full outline-none text-gray-700 px-3 rounded "
+        id="searched"
+        type="text"
+        placeholder="Search"
+        onChange={handleChange}
+      />
 
-`
-export default function SearchBar({onSearch}) {
-    // code
-    const [city,setCity] = useState('');
-
-    function handleChange(event) {
-        setCity(event.target.value);
-        console.log(event.target.value);
-    }
-
-    return <form onSubmit={()=>'hola'} className={sty.searchBar}>
-            <input
-                id='searched'
-                type="text" 
-                placeholder="Search City"
-                onChange={handleChange} 
-            />
-            <button 
-                onClick={(event)=>{
-                    event.preventDefault();
-                    onSearch(city)
-                    document.getElementById('searched').value='';
-                }}
-            >Add</button>
+      <button
+        type="submit"
+        className="h-full w-7 absolute top-0 right-0 flex items-center justify-center"
+        onClick={(event) => {
+          event.preventDefault();
+          onSearch(city);
+          document.getElementById("searched").value = "";
+        }}
+      >
+        <icons.Searched className="w-6 h-6 fill-[#2a2e35] hover:fill-emerald-100" />
+      </button>
     </form>
-    
+  );
 }
