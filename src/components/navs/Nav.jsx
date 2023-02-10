@@ -2,10 +2,9 @@ import React from "react";
 import SearchBar from "../forms/SearchBar.jsx";
 import { icons } from "../../asset/index.js";
 import { NavLink } from "react-router-dom";
-import sty from "./Nav.module.css";
 import { saveInStorage } from "../../utils/index.js";
 
-export default function Nav({ onSearch }) {
+export default function Nav({ onSearch,noFound}) {
   return (
     <nav className="bg-[#333441] h-20 flex items-center rounded-lg shadow-2xl">
       <ul className="w-full flex list-none items-center justify-between">
@@ -22,7 +21,7 @@ export default function Nav({ onSearch }) {
           </li>
         </NavLink>
         <li className="px-3">
-          <SearchBar onSearch={onSearch} />
+          <SearchBar onSearch={onSearch} noFound={noFound} />
         </li>
       </ul>
     </nav>

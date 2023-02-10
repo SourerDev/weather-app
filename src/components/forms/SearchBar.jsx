@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { icons } from "../../asset";
 
-export default function SearchBar({ onSearch }) {
+export default function SearchBar({ onSearch, noFound }) {
   // code
   const [city, setCity] = useState("");
 
@@ -30,6 +30,11 @@ export default function SearchBar({ onSearch }) {
       >
         <icons.Searched className="w-6 h-6 fill-[#2a2e35] hover:fill-emerald-100" />
       </button>
+      {noFound.error &&
+        <div className="absolute w-full left-0 top-[110%] bg-[#ffffff] text-center font-medium text-gray-400 rounded-md shadow">
+          {noFound.error}
+        </div>
+      }
     </form>
   );
 }

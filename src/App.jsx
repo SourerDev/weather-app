@@ -7,52 +7,70 @@ import Landing from "./pages/Landing.jsx";
 import Main from "./pages/Main";
 
 function App() {
-  const [defaultCity, setDefaultCity] = useState({
-    base: "stations",
-    clouds: { all: 98 },
-    cod: 200,
-    coord: { lon: -76.488, lat: 3.0073 },
-    dt: 1675458177,
-    id: 3668572,
-    main: {
-      feels_like: 28.5,
-      grnd_level: 895,
-      humidity: 55,
-      pressure: 1008,
-      sea_level: 1008,
-      temp: 27.66,
-      temp_max: 27.66,
-      temp_min: 27.66,
+  const [pinned, setPinned] = useState({
+    defaultCity: {
+      base: "stations",
+      clouds: { all: 98 },
+      cod: 200,
+      coord: { lon: -76.488, lat: 3.0073 },
+      dt: 1675458177,
+      id: 3668572,
+      main: {
+        feels_like: 28.5,
+        grnd_level: 895,
+        humidity: 55,
+        pressure: 1008,
+        sea_level: 1008,
+        temp: 27.66,
+        temp_max: 27.66,
+        temp_min: 27.66,
+      },
+      name: "Santander de Quilichao",
+      sys: {
+        country: "CO",
+        sunrise: 1675423190,
+        sunset: 1675466377,
+      },
+      timezone: -18000,
+      visibility: 10000,
+      weather: [
+        {
+          id: 804,
+          main: "Clouds",
+          description: "overcast clouds",
+          icon: "04d",
+        },
+      ],
+      wind: { speed: 1.58, deg: 329, gust: 1.95 },
     },
-    name: "Santander de Quilichao",
-    sys: {
-      country: "CO",
-      sunrise: 1675423190,
-      sunset: 1675466377,
-    },
-    timezone: -18000,
-    visibility: 10000,
-    weather: [
-      { id: 804, main: "Clouds", description: "overcast clouds", icon: "04d" },
-    ],
-    wind: { speed: 1.58, deg: 329, gust: 1.95 },
+    pinnedCity: {},
   });
   const [cities, setCities] = useState([]);
+  const [error, setError] = useState("");
 
   function onSearch(city) {
     axios(
       `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${"4ae2636d8dfbdc3044bede63951a019b"}&units=metric`
     )
       .then((result) => {
-        let info = result.data;
-        if (info) {
-          setCities((oldCities) => [...oldCities, info]);
+        let { id } = result.data;
+        const exists = cities?.filter((c) => c.id === id)?.length > 0;
+
+        if (!exists) {
+          setCities((oldCities) => [...oldCities, result.data]);
+          setError("");
         } else {
-          alert(`City (${city}). no found`);
+          setError(`City already exists`);
+          setTimeout(() => {
+            setError("");
+          }, 3000);
         }
       })
       .catch((error) => {
-        console.log(error.response.statusText);
+        setError(error.response.statusText);
+        setTimeout(() => {
+          setError("");
+        }, 3000);
       });
   }
 
@@ -70,15 +88,14 @@ function App() {
   }
 
   useEffect(() => {
-    /* navigator.geolocation.getCurrentPosition(
+     navigator.geolocation.getCurrentPosition(
       ({ coords }) => {
         const { latitude, longitude } = coords;
         axios(
           `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=4ae2636d8dfbdc3044bede63951a019b&units=metric`
         )
           .then(({ data }) => {
-            setDefaultCity(data);
-            console.log(data);
+            setPinned({defaultCity:data});
           })
           .catch((err) => {
             alert(err.message);
@@ -87,8 +104,9 @@ function App() {
       () => {
         alert("Ha sucedido un error");
       }
-    ); */
+    );
   }, []);
+
   return (
     <div className="h-[100vh] bg-[#2a2335] p-4 text-white">
       <Routes>
@@ -100,7 +118,8 @@ function App() {
               cities={cities}
               onClose={onClose}
               onSearch={onSearch}
-              defaultCity={{ defaultCity, setDefaultCity }}
+              noFound={{ error, setError }}
+              pinnedValues={{ pinned, setPinned }}
             />
           }
         />

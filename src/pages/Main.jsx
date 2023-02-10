@@ -1,35 +1,40 @@
 import Nav from "../components/navs/Nav";
 import Card from "../components/cards/Card";
-import { Link } from "react-router-dom";
 import DefaultCity from "../components/cards/DefaulCity";
 
-const Main = ({ cities, onClose, onSearch, defaultCity }) => {
+const Main = ({ cities, onClose, onSearch, pinnedValues,noFound}) => {
+  const { pinned, setPinned } = pinnedValues;
+
   return (
     <div className=" h-full">
-      <Nav onSearch={onSearch} />
+      <Nav onSearch={onSearch} noFound={noFound}/>
+
       <div className="h-[87%] w-full flex  my-2" id="container">
         <div className="h-full w-[40%] flex items-center justify-center">
-          <DefaultCity city={defaultCity.defaultCity} />
+          <DefaultCity
+            defaultCity={pinned.defaultCity}
+            pinnedCity={pinned.pinnedCity}
+            onClose={onClose}
+            onPinned={setPinned}
+          />
         </div>
+
         <div className="h-full w-[60%] flex flex-wrap start py-4 overflow-y-scroll">
-          {cities && Array.isArray(cities) ? (
-            cities.map((city) => (
-              <Card
-                key={city.id}
-                id={city.id}
-                temp={city.main.temp}
-                max={city.main.temp_max}
-                min={city.main.temp_min}
-                name={city.name}
-                shortDesc={city.weather[0].main}
-                wind={city.wind.speed}
-                humidity={city.main.humidity}
-                img={city.weather[0].icon}
-                onClose={onClose}
-              />
-            ))
+          {cities?.length > 0 && Array.isArray(cities) ? (
+            cities
+              .filter((c) => c.id !== pinned.pinnedCity.id)
+              .map((city) => (
+                <Card
+                  key={city.id}
+                  city={city}
+                  onClose={onClose}
+                  onPinned={setPinned}
+                />
+              ))
           ) : (
-            <h2>No se encontraron ciudades</h2>
+            <div className="w-full">
+              <h2 className="w-full text-center font-bold">Without Cities</h2>
+            </div>
           )}
         </div>
       </div>
