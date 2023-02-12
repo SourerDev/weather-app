@@ -8,7 +8,7 @@ export default function DefaultCity({
 }) {
   const city = pinnedCity?.id ? pinnedCity : defaultCity;
   return (
-    <div className="bg-[#333441] w-[350px] h-[500px] rounded-xl shadow-xl">
+    <div className="bg-[#333441] w-[350px] h-[530px] rounded-xl shadow-xl sm:h-[500px]">
       <div className="flex justify-between items-center m-2">
         <h1
           className="min-w-[50%] text-xl ml-4 mr-4 mt-4 font-extrabold relative"
@@ -22,8 +22,8 @@ export default function DefaultCity({
         </h1>
 
         {pinnedCity?.id && (
-          <div className=" bg-gray-200 w-1 h-8 relative rounded-lg hover:bg-[#2a2e35] group/hv">
-            <div className="bg-[#333441] hidden w-20 absolute -top-2 left-full rounded-r-lg text-center p-1 group-hover/hv:block">
+          <div className="bg-gray-200 h-8 rounded-lg hover:bg-[#2a2e35] group/hv sm:relative sm:w-1 z-20">
+            <div className="bg-[#333441] w-20 -top-2 left-full rounded-r-lg text-center p-1 sm:group-hover/hv:block sm:absolute sm:hidden">
               <button
                 onClick={() => {
                   onPinned((previus) => ({ ...previus, pinnedCity: {} }));
@@ -43,7 +43,7 @@ export default function DefaultCity({
           </div>
         )}
       </div>
-      <div className="h-[68%] flex flex-col items-center justify-center mx-2">
+      <div className="h-[70%] flex flex-col items-center justify-center mx-2 sm:h-[68%]">
         <div className="w-[120px] h-[120px]">
           <img
             className="w-full h-full"

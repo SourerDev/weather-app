@@ -78,15 +78,6 @@ function App() {
     setCities((oldCities) => oldCities.filter((city) => city.id !== id));
   }
 
-  function cityFilter(cityId) {
-    let city = cities.filter((c) => c.id === parseInt(cityId));
-    if (city.length > 0) {
-      return city[0];
-    } else {
-      return null;
-    }
-  }
-
   useEffect(() => {
      navigator.geolocation.getCurrentPosition(
       ({ coords }) => {
@@ -108,7 +99,7 @@ function App() {
   }, []);
 
   return (
-    <div className="h-[100vh] bg-[#2a2335] p-4 text-white">
+    <div className="min-h-[100vh] bg-[#2a2335] text-white overflow-hidden sm:p-2">
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route

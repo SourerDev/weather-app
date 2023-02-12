@@ -4,9 +4,10 @@ import { icons } from "../../asset/index.js";
 import { NavLink } from "react-router-dom";
 import { saveInStorage } from "../../utils/index.js";
 
+
 export default function Nav({ onSearch,noFound}) {
   return (
-    <nav className="bg-[#333441] h-20 flex items-center rounded-lg shadow-2xl">
+    <nav className="bg-[#333441] flex items-center py-1 shadow-2xl sm:h-20 sm:rounded-lg ">
       <ul className="w-full flex list-none items-center justify-between">
         <NavLink
           exact

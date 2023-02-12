@@ -9,7 +9,7 @@ const Landing = () => {
     if (value && value.navigate) {
         navigate('/main')
     }
-  }, []);
+  }, [navigate]);
 
   return (
     <div className="h-full flex flex-col items-center justify-center">
